@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 函数前面的async一词意味着一个简单的事情：这个函数总是返回一个promise，如果代码中有return<非promise>语句，js就会自动把返回的这个value值包装成promise的resolved
+    async function fun() {
+      return 1108
+    }
+    console.log(fun())
+    fun().then(console.log)  //1108
+
+    //打印结果 
+    // Promise {<resolved>: 1108}
+    // __proto__: Promise
+    // [[PromiseStatus]]: "resolved"
+    // [[PromiseValue]]: 1108
+
+    async function Sun() {
+      return Promise.resolve(1)
+    }
+    Sun().then(console.log) //1
+
+    //await只能在async函数内部使用，不再其内部使用就会报错
+    //await函数不能工作在顶层作用域，需要包裹在async函数中
+    async function Dsj() {
+      let promise = new Promise((resolve,reject) => {
+        setTimeout(() => {
+          resolve("dsj&&scx")
+        },1000)
+      })
+      console.log(123)
+      let result = await promise
+      console.log(result)
+    }
+    Dsj()
+
+    //函数执行到result行会暂停，先执行123，然后再等到setTimeout执行完之后等待1S才会执行result的值
+    //不会花费任何cpu资源，因为引擎能够同时做其他的事情，执行其他脚本
+
+    //当有错误时，用try...catch捕捉
+  </script>
+</body>
+</html>
